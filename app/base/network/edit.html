@@ -1,0 +1,56 @@
+<? include $this->header() ?>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>Edit Network</h1>
+    <form name="edit_sender" class="form-horizontal" method="post" action="<?=$this->url("/network/add")?>">
+      <input type="hidden" name="process" value="1">
+
+      <div class="form-body">
+      
+        <div class="form-group">
+          <label class="col-md-3 control-label">Name</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="name" value="<?=$network->name?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Network</label>
+          <div class="col-md-7">
+            <select class="form-control" name="def">
+              <option value="">-- SELECT ONE --</option>
+              <? while ($network_def->fetch()){ ?>
+              <option value="<?=$network_def->id?>" <?=($network_def->id == $network->def) ? "selected" : ""?> ><?=$network_def->name?></option>
+              <? } ?>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Affiliate ID</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="affiliate_id" value="<?=$network->affiliate_id?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">API Key</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="api_key" value="<?=$network->api_key?>"/></div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-3"></div>
+          <div class="col-md-7 text-right">
+            <a href="<?=$this->url("/network/index")?>" class="btn btn-default">
+              <span class="glyphicon glyphicon-remove"></span> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <span class="glyphicon glyphicon-ok"></span> Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<? include $this->footer() ?> 

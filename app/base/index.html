@@ -1,0 +1,60 @@
+<? include $this->header() ?>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Quick Stats</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <table class="table">
+      <tr>
+        <th>Offers:</th>
+        <td><?=$offer->count()?></td>
+      </tr>
+      <tr>
+        <th>Impressions Today:</th>
+        <td><?=$click->impressions_today?></td>
+      </tr>
+      <tr>
+        <th>Clicks Today:</th>
+        <td><?=$click->clicks_today?></td>
+      </tr>
+      <tr>
+        <th>Conversions Today:</th>
+        <td><?=$click->conversions_today?></td>
+      </tr>
+      <tr>
+        <th>Revenue Today:</th>
+        <td>$<?=$click->revenue_today?></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-sm-6">
+    <table class="table">
+      <tr>
+        <th>Networks:</th>
+        <td><?=$network->count?></td>
+      </tr>
+      <tr>
+        <th>Total Impressions:</th>
+        <td><?=$click->total_impressions?></td>
+      </tr>
+      <tr>
+        <th>Total Clicks:</th>
+        <td><?=$click->total_clicks?></td>
+      </tr>
+      <tr>
+        <th>Total Conversions:</th>
+        <td><?=$click->total_conversions?></td>
+      </tr>
+      <tr>
+        <th>Total Revenue:</th>
+        <td>$<?=$click->total_revenue?></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<? include $this->footer() ?>

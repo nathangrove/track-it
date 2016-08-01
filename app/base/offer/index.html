@@ -1,0 +1,120 @@
+<? include $this->header() ?>
+
+<div class='row'>
+  <div class='col-sm-10'>
+    <h1>Offers</h1>
+  </div>
+  <div class="col-sm-2">
+    <a href="<?=$this->url('/offer/add')?>" class="btn btn-primary pull-right"><i class='fa fa-plus'></i> Add</a>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class='col-sm-12'>
+    <div class='table table-responsive'>
+      <div class="dt-toolbar"><div class="col-xs-12 col-sm-6"><div id="dt_basic_filter" class="dataTables_filter"><label><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span> <input type="search" id="search" class="form-control" aria-controls="dt_basic"></label></div></div></div>
+      <table class='table table-hover'>
+        <tr>
+          <th>Offer</th>
+          <th>Payout</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <? while ($offer->fetch()){ ?>
+          <tr onclick="console.log('clicked');$('.offer_<?=$offer->id?>').toggle()">
+            <td class="searchable">
+              <?=$offer->name?>
+            </td>
+            <td>$<?=$offer->payout?></td>
+            <td><a href="<?=$this->url("/report?offer=$offer->id")?>" class="btn btn-sm btn-info"><i class='fa fa-file-text'></i> Report</a></td>
+            <td><a href="<?=$this->url("/offer/edit?id=$offer->id")?>" class="btn btn-sm btn-default"><i class='fa fa-edit'></i> Edit</a></td>
+            <td><a href="<?=$this->url("/offer/delete?id=$offer->id")?>" class="btn btn-sm btn-danger"><i class='fa fa-trash-o'></i> Delete</a></td>
+          </tr>
+          <tr class="offer_<?=$offer->id?>" style="display:none">
+            <td colspan="5">
+            <div class="jarviswidget" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" role="widget">
+
+                <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+
+                -->
+
+                <header role="heading">
+                <span class="widget-icon"> <i class="fa fa-comments txt-color-white"></i> </span>
+                  <h2> <?=$offer->name?> </h2>
+                <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+                <!-- widget div-->
+                <div role="content">
+                  <!-- end widget edit box -->
+
+                  <div class="widget-body widget-hide-overflow no-padding">
+
+                    <!-- content goes here -->
+                    <table class="table table-responsive">
+                    <tr>
+                      <th>Network</th>
+                      <td><?=$offer->network_name?></td>
+                    </tr>
+                    <tr>
+                      <th>Description</th>
+                      <td><?=nl2br($offer->description)?></td>
+                    </tr>
+                    <tr>
+                      <th>Restrictions</th>
+                      <td><?=nl2br($offer->restrictions)?></td>
+                    </tr>
+                    <tr>
+                      <th>Network Link</th>
+                      <td><?=$offer->url?></td>
+                    </tr>
+                    <tr>
+                      <th>Preview</th>
+                      <td><a href="<?=$offer->preview?>" target="_blank"><?=$offer->preview?></a></td>
+                    </tr>
+                    <tr>
+                      <th>Tracking Link</th>
+                      <td><a href="<?="http://$this->domain/c/$offer->code"?>" target="_blank"><?="http://$this->domain/c/$offer->code"?></a></td>
+                    </tr>
+                    <tr>
+                      <th>Impression Code</th>
+                      <td>&lt;img src="<?="http://$this->domain/i/$offer->code"?>" height="1px" width="1px"/&gt;</td>
+                    </tr>
+                    </table>
+
+                    <!-- end content -->
+                  </div>
+
+                </div>
+                <!-- end widget div -->
+              </div>
+            </td>
+          </tr>
+        <? } ?>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type='text/javascript'>
+$("#search").keyup(function(){
+  $(".searchable").parent().hide();
+  $(".searchable").each(function(index,td){
+    if ($(this).text().toLowerCase().indexOf($("#search").val().toLowerCase()) > -1){
+      $(this).parent().show();
+    }
+  });
+});
+</script>
+<? include $this->footer() ?>

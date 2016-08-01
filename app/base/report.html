@@ -1,0 +1,132 @@
+<? include $this->header() ?>
+
+<div class='row'>
+  <div class='col-sm-12'>
+    <h1>Report Generator</h1>
+    <form name="edit_sender" class="form-horizontal" method="post" action="<?=$this->url("/report")?>">
+      <input type="hidden" name="process" value="1">
+      <input type="hidden" name="code" value="<?=$this->p('offer')?>"/>
+      <div class="form-body">
+
+      
+        <div class="form-group">
+          <label for="offer" class="col-md-3 control-label">Offer</label>
+          <div class="col-md-7">
+            <select name="offer" class="form-control">
+              <option value="0">-- ALL --</option>
+              <? while ($sel_offer->fetch()){ ?>
+                <option value="<?=$sel_offer->id?>" <?=$sel_offer->id == $this->p('offer') ? "selected" : ""?>><?=$sel_offer->name?></option>
+              <? } ?>
+            </select>
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label for="startdate" class="col-md-3 control-label">Start Date</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control hasDatepicker" name="startdate" id="startdate" value="<?=$this->p('startdate') == '' ? date("Y-m-d") : $this->p('startdate')?>">
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label for="enddate" class="col-md-3 control-label">End Date</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control hasDatepicker" name="enddate" id="enddate" value="<?=$this->p('enddate') == '' ? date("Y-m-d") : $this->p('startdate')?>">
+          </div>
+        </div>
+
+
+      
+        <div class="form-group">
+          <label for="type" class="col-md-3 control-label">Event Type</label>
+          <div class="col-md-7">
+            <select name="type" class="form-control">
+              <option value="">-- ALL --</option>
+              <option value="IMPRESSIONS" <?=$this->p('type') == 'IMPRESSIONS' ? "selected" : ""?>>Impressions</option>
+              <option value="CLICK" <?=$this->p('type') == 'CLICK' ? "selected" : ""?>>Clicks</option>
+              <option value="CONVERSIONS" <?=$this->p('type') == 'CONVERSIONS' ? "selected" : ""?>>Conversions</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="enddate" class="col-md-5 control-label">Browser Data</label>
+              <div class="col-md-7">
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="browser" <?=in_array('browser',$_POST['data']) ? 'checked' : ''?>><i></i>Browser</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="agent"   <?=in_array('agent',$_POST['data']) ? 'checked' : ''?>><i></i>User Agent</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="ip"       <?=in_array('ip',$_POST['data']) ? 'checked' : ''?>><i></i>IP Address</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="referer"  <?=in_array('referer',$_POST['data']) ? 'checked' : ''?>><i></i>Referer</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class='col-sm-2'>
+            <div class="form-group">
+              <label for="enddate" class="col-md-5 control-label">Sub IDs</label>
+              <div class="col-md-7">
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="ts1"  <?=in_array('ts1',$_POST['data']) ? 'checked' : ''?>><i></i>TS1</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="ts2"  <?=in_array('ts2',$_POST['data']) ? 'checked' : ''?>><i></i>TS2</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="ts3"  <?=in_array('ts3',$_POST['data']) ? 'checked' : ''?>><i></i>TS3</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="data[]" value="ts4"  <?=in_array('ts4',$_POST['data']) ? 'checked' : ''?>><i></i>TS4</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="enddate" class="col-md-5 control-label">Geo Data</label>
+              <div class="col-md-7">
+                <label class="checkbox col-sm-12"><input type="checkbox" name="geo[]" value="city"    <?=in_array('city',$_POST['geo']) ? 'checked' : ''?>><i></i>City</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="geo[]" value="state"   <?=in_array('state',$_POST['geo']) ? 'checked' : ''?>><i></i>State</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="geo[]" value="zip"     <?=in_array('zip',$_POST['geo']) ? 'checked' : ''?>><i></i>Zip</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="geo[]" value="country" <?=in_array('country',$_POST['geo']) ? 'checked' : ''?>><i></i>Country</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-sm-1">
+            <div class="form-group">
+              <label for="enddate" class="col-md-5 control-label">Stats</label>
+              <div class="col-md-7">
+                <label class="checkbox col-sm-12"><input type="checkbox" name="stats[]" value="revenue" <?=in_array('revenue',$_POST['stats']) ? 'checked' : ''?>><i></i>Revenue</label>
+                <label class="checkbox col-sm-12"><input type="checkbox" name="stats[]" value="date"    <?=in_array('date',$_POST['stats']) ? 'checked' : ''?>><i></i>Date</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      
+        <div class="form-group">
+          <label for="event_type" class="col-md-3 control-label"></label>
+          <div class="col-md-2">
+            <button class='btn btn-primary'><i class="fa fa-gears"></i> Generate</button>&nbsp;
+            <button class='btn btn-primary' name="download" value='1'><i class="fa fa-download"></i> Download</button>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<? if ($this->process){ ?>
+<div class='row'>
+  <div class='col-sm-12'>
+    <h1>Report</h1>
+    <table class="table table-hover">
+      <tr><th><?=implode("</th><th>",$headers)?></th></tr>
+    <? foreach($report AS $report_line){ ?>
+      <tr><td><?=implode("</td><td>",$report_line)?></td></tr>
+    <? } ?>
+    </table>
+  </div>
+</div>
+<? } ?>
+
+
+<? include $this->footer() ?>

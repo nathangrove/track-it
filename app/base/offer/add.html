@@ -1,0 +1,86 @@
+<? include $this->header() ?>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>New Offer</h1>
+    <form name="edit_sender" class="form-horizontal" method="post" action="<?=$this->url("/offer/add")?>">
+      <input type="hidden" name="process" value="1">
+      <input type="hidden" name="code" value="<?=$code?>"/>
+      <div class="form-body">
+      
+        <div class="form-group">
+          <label class="col-md-3 control-label">Name</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="name" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">URL</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="url" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Network</label>
+          <div class="col-md-7">
+            <select class="form-control">
+              <option value=""> -- </option>
+              <? while($network->fetch()){ ?>
+                <option value="<?=$network->id?>"><?=$network->name?></option>
+              <? } ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Description</label>
+          <div class="col-md-7"><textarea class="form-control" name="description"></textarea></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Restrictions</label>
+          <div class="col-md-7"><textarea class="form-control" name="restrictions"></textarea></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Payout ($)</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="payout" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Preview</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="preview" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Postback</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" disabled value="<?="http://".$this->domain."/postback/$code/#s2#/#price#"?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Tracking Link</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" disabled value="<?="http://".$this->domain."/c/$code"?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Impression Code</label>
+          <div class="col-md-7"><input class='form-control' disabled value='<img src="<?="http://$this->domain/i/$code"?>" height="1px" width="1px"/>'/></div>
+        </div>
+
+
+        <div class="form-group">
+          <div class="col-md-3"></div>
+          <div class="col-md-7 text-right">
+            <a href="<?=$this->url("/offer/index")?>" class="btn btn-default">
+              <span class="glyphicon glyphicon-remove"></span> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <span class="glyphicon glyphicon-plus"></span> Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<? include $this->footer() ?> 

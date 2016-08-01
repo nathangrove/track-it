@@ -1,0 +1,113 @@
+<? include $this->header() ?>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>Edit Offer</h1>
+    <form name="edit_sender" class="form-horizontal" method="post" action="<?=$this->url("/offer/edit")?>">
+      <input type="hidden" name="process" value="1">
+      <input type="hidden" name="id" value="<?=$offer->id?>"/>
+      <div class="form-body">
+      
+        <div class="form-group">
+          <label class="col-md-3 control-label">Name</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="name" value="<?=$offer->name?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">URL</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="url" value="<?=$offer->url?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Network</label>
+          <div class="col-md-7">
+            <select class="form-control" name="network">
+              <option value=""> -- </option>
+              <? while($network->fetch()){ ?>
+                <option value="<?=$network->id?>" <?=$network->id==$offer->network?"selected":""?>><?=$network->name?></option>
+              <? } ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Description</label>
+          <div class="col-md-7"><textarea class="form-control" name="description"><?=$offer->description?></textarea></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Restrictions</label>
+          <div class="col-md-7"><textarea class="form-control" name="restrictions"><?=$offer->restrictions?></textarea></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Payout ($)</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="payout" value="<?=$offer->payout?>"/></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Preview</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" name="preview" value="<?=$offer->preview?>"/></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Network Postback</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" disabled value="<?="http://".$this->domain."/postback/$offer->code/#s2#/#price#"?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Tracking Link</label>
+          <div class="col-md-7"><input class="form-control" maxlength="255" disabled value="<?="http://".$this->domain."/c/$offer->code"?>" /></div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Impression Code</label>
+          <div class="col-md-7"><input class='form-control' disabled value='<img src="<?="http://$this->domain/i/$offer->code"?>" height="1px" width="1px"/>'/></div>
+        </div>
+        
+        <div id="postbacks">
+        </div>
+
+
+        <div class="form-group">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-default" onclick="add_postback()">
+              <span class="glyphicon glyphicon-plus"></span> Add Postback
+            </button>
+          </div>
+          <div class="col-md-6 text-right">
+            <a href="<?=$this->url("/offer/index")?>" class="btn btn-danger">
+              <span class="glyphicon glyphicon-remove"></span> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <span class="glyphicon glyphicon-ok"></span> Update
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="postback_template" style="display:none">
+  <div class="form-group">
+    <label class="col-md-3 control-label">Postback</label>
+    <div class="input-group col-md-7">
+      <input class='form-control' name='postback[]' type='text'/>
+      <span class="input-group-btn">
+        <button type='button' onclick='jQuery(this).parent().parent().parent().remove()' class='btn btn-default'><i class="fa fa-trash-o"></i> Remove</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function add_postback(){
+    jQuery("#postbacks").append(jQuery("#postback_template").html());
+  }
+</script>
+
+<? include $this->footer() ?> 

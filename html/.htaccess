@@ -1,0 +1,7 @@
+AddHandler application/x-httpd-php .html
+Options All -Indexes
+
+RewriteEngine on
+RewriteRule ^app/(.*) app-controller.php?path=$1 [PT,L,E=PATH_INFO:/$1,QSA]
+RewriteRule ^c/(.*) click.php?path=$1 [PT,L,QSA]
+RewriteRule ^postback/(.*) postback.php?path=$1 [PT,L,QSA]
