@@ -1,0 +1,1 @@
+This is a small link and conversion tracking platform I wrote for myself. Its similar to other services such as CPVLab or Voluume. The software will track any link you want and can provide analytics such as geo loctions, referrers, and browser info.
